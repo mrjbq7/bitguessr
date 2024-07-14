@@ -1,4 +1,4 @@
-USING: accessors classes.struct formatting kernel math namespaces random raylib sequences ;
+USING: accessors classes.struct formatting kernel io.pathnames math namespaces random raylib sequences ;
 IN: bitguessr
 
 CONSTANT: screen-width 800
@@ -24,19 +24,19 @@ SYMBOL: game-screen ! 0 for the main screen and 1 for the lose screen
     RAYWHITE clear-background ;
 
 MEMO: button-0 ( -- texture ) 
-    "button-0.png" load-texture ;
+    "vocab:bitguessr/_resources/button-0.png" absolute-path load-texture ;
 
 MEMO: button-1 ( -- texture ) 
-    "button-1.png" load-texture ;
+    "vocab:bitguessr/_resources/button-1.png" absolute-path load-texture ;
 
 MEMO: correct-fx ( -- sound ) 
-    "correct.wav" load-sound ;
+    "vocab:bitguessr/_resources/correct.wav" absolute-path load-sound ;
 
 MEMO: wrong-fx ( -- sound ) 
-    "wrong.wav" load-sound ;
+    "vocab:bitguessr/_resources/wrong.wav" absolute-path load-sound ;
 
 MEMO: music ( -- music )
-    "bitguessr_soundtrack.wav" load-music-stream t >>looping ;
+    "vocab:bitguessr/_resources/bitguessr_soundtrack.wav" absolute-path load-music-stream t >>looping ;
 
 :: button-rec ( button n -- rectangle )
     0 button height>> frames / n zero? [ btn0-state get * ] [ btn1-state get * ] if
@@ -128,7 +128,7 @@ MEMO: music ( -- music )
     make-window
     init-audio-device
     music play-music-stream
-    "bitguessr_icon.png" raylib:load-image [ 7 raylib:image-format ] [ set-window-icon ] bi
+    "vocab:bitguessr/_resources/bitguessr_icon.png" absolute-path raylib:load-image [ 7 raylib:image-format ] [ set-window-icon ] bi
     0 btn1-state set
     0 btn0-state set
     0 score set
